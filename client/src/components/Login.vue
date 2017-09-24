@@ -3,9 +3,8 @@
     <v-flex xs6 offset-xs3>
       <div class="white elevation-2">
         <v-toolbar flot dense class="cyan lighten-3" dark>
-          <v-toolbar-title>Register</v-toolbar-title>
+          <v-toolbar-title>Login</v-toolbar-title>
         </v-toolbar>
-        <form autocomplete="off">
           <v-card class="grey lighten-4 elevation-0">
             <v-card-text>
               <v-container fluid>
@@ -38,30 +37,13 @@
                     ></v-text-field>
                   </v-flex>
                 </v-layout>
-                <v-layout row>
-                  <v-flex xs4>
-                    <v-subheader>Password</v-subheader>
-                  </v-flex>
-                  <v-flex xs8>
-                    <v-text-field
-                      name="input-10-2"
-                      label="Enter your password"
-                      hint="At least 8 characters"
-                      min="8"
-                      v-model="validatePassword"
-                      :type="'password'"
-                      :rules="[rules.required,rules.password,rules.character]"
-                    ></v-text-field>
-                  </v-flex>
-                </v-layout>
               </v-container>
             </v-card-text>
              <div v-html="error" class="error--text"></div>
-            <v-btn class="cyan lighten-3" @click="register">
-              register
+            <v-btn class="cyan lighten-3" @click="login">
+              Login
             </v-btn>
           </v-card>
-        </form>
       </div>
     </v-flex>
   </v-layout>
@@ -97,9 +79,9 @@ export default {
     }
   },
   methods: {
-    async register () {
+    async login () {
       try {
-        await AuthenticationService.register({
+        await AuthenticationService.login({
           email: this.email,
           password: this.password
         })

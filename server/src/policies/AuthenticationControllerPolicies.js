@@ -9,31 +9,31 @@ module.exports = {
       )
     }
     const {error, value} = Joi.validate(req.body, schema)
-
+    console.log('value:', value)
     if (error) {
       switch (error.details[0].context.key) {
         case 'email':
           res.status(400).send({
-            error:'You must provide a valid email address'
+            error: 'You must provide a valid email address'
           })
-          break;
+          break
         case 'password':
           res.status(400).send({
-            error:`The password provided faild to match the following rule:
+            error: `The password provided faild to match the following rule:
+            1. It must contain ONLY the following characters: lower case, upper case, numerics.
             <br>
-            1.It must contain ONLY the following characters:`
+            2. It must be at least 8 characters in length and not greater than 32 characters in length.
+            `
           })
+          break
         default:
           res.status(400).send({
-            error:'Invalid registration information'
+            error: 'Invalid registration information'
           })
-          break;
+          break
       }
     } else {
-      next()    
+      next()
     }
   }
 }
-
-
-
