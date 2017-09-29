@@ -1,12 +1,9 @@
 <template>
   <v-layout column>
     <v-flex xs6 offset-xs3>
-      <div class="white elevation-2">
-        <v-toolbar flot dense class="cyan lighten-3" dark>
-          <v-toolbar-title>Register</v-toolbar-title>
-        </v-toolbar>
+      <panel title="Register">
         <form autocomplete="off">
-          <v-card class="grey lighten-4 elevation-0">
+          <v-card class="elevation-0">
             <v-card-text>
               <v-container fluid>
                 <v-layout row>
@@ -62,13 +59,14 @@
             </v-btn>
           </v-card>
         </form>
-      </div>
+      </panel>
     </v-flex>
   </v-layout>
 </template>
 
 <script>
 import AuthenticationService from '@/services/AuthenticationService'
+import Panel from '@/components/Panel.vue'
 export default {
   name: 'register',
   data () {
@@ -107,6 +105,9 @@ export default {
         this.error = error.response.data.error
       }
     }
+  },
+  components: {
+    Panel
   }
 }
 </script>

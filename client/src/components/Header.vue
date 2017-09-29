@@ -7,17 +7,23 @@
     </v-toolbar-title>
     <v-toolbar-items>
       <v-btn flat dark>
-        Browser
+        <router-link to='songs' tag="v-btn" class="btn--flat theme--dark">
+          Browser
+      </router-link>
       </v-btn>
     </v-toolbar-items>
-
     <v-spacer></v-spacer>
-    <v-toolbar-items>
+    <v-toolbar-items v-if="$store.state.isUserLoggedIn">
+      <v-btn flat dark @click="logout">
+        Logout
+      </v-btn>
+    </v-toolbar-items>
+    <v-toolbar-items v-if="!$store.state.isUserLoggedIn">
       <router-link to='login' tag="v-btn" class="btn--flat theme--dark">
         Login
       </router-link>
     </v-toolbar-items>
-    <v-toolbar-items>
+    <v-toolbar-items v-if="!$store.state.isUserLoggedIn">
       <router-link to='register' tag="v-btn" class="btn--flat theme--dark">
         Sign Up
       </router-link>
@@ -27,7 +33,17 @@
 
 <script>
 export default {
-  name: 'Header'
+  name: 'Header',
+  methods: {
+    logout () {
+      this.$store.dispatch('setToken', null)
+      this.$store.dispatch('setUser', null)
+      // redirect to homepage
+      this.$router.push({
+        name: 'Home'
+      })
+    }
+  }
 }
 </script>
 

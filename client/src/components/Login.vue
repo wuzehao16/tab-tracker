@@ -1,11 +1,8 @@
 <template>
   <v-layout column>
     <v-flex xs6 offset-xs3>
-      <div class="white elevation-2">
-        <v-toolbar flot dense class="cyan lighten-3" dark>
-          <v-toolbar-title>Login</v-toolbar-title>
-        </v-toolbar>
-          <v-card class="grey lighten-4 elevation-0">
+      <panel title="Login">
+          <v-card class=" elevation-0">
             <v-card-text>
               <v-container fluid>
                 <v-layout row>
@@ -44,13 +41,14 @@
               Login
             </v-btn>
           </v-card>
-      </div>
+      </panel>
     </v-flex>
   </v-layout>
 </template>
 
 <script>
 import AuthenticationService from '@/services/AuthenticationService'
+import Panel from '@/components/Panel.vue'
 export default {
   name: 'register',
   data () {
@@ -81,14 +79,19 @@ export default {
   methods: {
     async login () {
       try {
-        await AuthenticationService.login({
+        const response = await AuthenticationService.login({
           email: this.email,
           password: this.password
         })
+        this.$store.dispatch('setToken', response.data.token)
+        this.$store.dispatch('setUser', response.data.user)
       } catch (error) {
         this.error = error.response.data.error
       }
     }
+  },
+  components: {
+    Panel
   }
 }
 </script>
